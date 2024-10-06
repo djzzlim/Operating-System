@@ -35,6 +35,7 @@ An Operating System (OS) is the interface between the user and the computer.
 When a program is loaded in memory for execution, this is called the **Stored Program Concept**.
 
 CPU can't execute the program directly from the hard disk.
+
 ![Stored Program Concept](img/stored_program_concept.drawio.png)  
 
 ---
