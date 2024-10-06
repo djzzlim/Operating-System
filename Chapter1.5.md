@@ -67,11 +67,11 @@
        
      ![Dual Mode Operation](img/dual_mode_operation.drawio.png)
 
-   - **Kernel Mode**:
-     - In Kernel mode, the executing code has complete and unrestricted access to the underlying hardware. Crashes in kernel mode are catastrophic and will halt the entire system.
+     - **Kernel Mode**:
+       - In Kernel mode, the executing code has complete and unrestricted access to the underlying hardware. Crashes in kernel mode are catastrophic and will halt the entire system.
 
-   - **User Mode**:
-     - In User mode, the executing code has no ability to directly access hardware or reference memory. Crashes in user mode are recoverable as isolation is maintained by the OS.
+     - **User Mode**:
+       - In User mode, the executing code has no ability to directly access hardware or reference memory. Crashes in user mode are recoverable as isolation is maintained by the OS.
 
 ---
 [Back](Chapter1.md)
