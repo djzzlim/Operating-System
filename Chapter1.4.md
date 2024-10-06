@@ -39,4 +39,10 @@
   CPU utilization is increased, and idleness is decreased.
 
 ---
+
+## Multiprocessing Architectures
+- **Symmetric Multiprocessing (SMP)**: All processors share the same memory and are equal; tasks are distributed evenly.
+- **Asymmetric Multiprocessing (AMP)**: Each processor is assigned a specific task, and one processor controls the system.
+
+---
 [Back](Chapter1.md)
