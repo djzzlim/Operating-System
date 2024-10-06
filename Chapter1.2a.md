@@ -66,4 +66,17 @@ The operating system can be likened to a government in several ways:
 - The OS functions as a Resource Manager, similar to how a government manages national resources.
   
 ---
+
+## OS in Mobile Devices
+- Modern operating systems extend to mobile devices, where they handle additional layers like **middleware** for supporting services such as multimedia, databases, and graphics.
+- Examples: **Apple iOS**, **Google Android**.
+
+---
+
+## Interrupts and OS Handling
+- **Interrupts**: Signals that inform the OS of an event that needs immediate attention.
+- The OS handles interrupts using **interrupt vectors** to direct control to the appropriate handler.
+- **Trap**: A software-generated interrupt due to an error or user request, such as a system call.
+
+---
 [Next](Chapter1.2b.md)

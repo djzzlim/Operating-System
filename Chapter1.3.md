@@ -21,4 +21,12 @@
   - Increased throughput and efficiency.
 
 ---
+
+### Storage Hierarchy
+- Organizes data by speed, cost, and volatility.
+  - **Cache**: Fastest, most expensive memory used for temporary data.
+  - **Main Memory (RAM)**: Faster but volatile.
+  - **Secondary Storage**: Slower but non-volatile, such as hard drives and SSDs.
+
+---
 [Back](Chapter1.md)

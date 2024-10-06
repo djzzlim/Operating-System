@@ -25,9 +25,17 @@ An Operating System (OS) is the interface between the user and the computer.
 - Hard disk, Pendrives
 
 ---
+
+### System Startup and Bootstrap Program
+- The **bootstrap program** is loaded at power-up or reboot.
+- It initializes the system, loads the operating system kernel, and starts executing user programs.
+- Stored in **ROM** or **EPROM** (firmware).
+
+---
+
 ### Questions
 **Q1: Where is secondary memory then?**  
-**A1:** As per Von Neumann Architecture, Secondary Memory are the part of Input Output Devices.
+**A1:** As per Von Neumann Architecture, Secondary Memory is part of Input/Output Devices.
 
 **Q2: How are programs executed in the VNA?**  
 **A2:**  
