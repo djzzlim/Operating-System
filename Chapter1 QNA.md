@@ -147,3 +147,4 @@ Function of operating system includes ________.
 Explanation: The functions of an operating system primarily include resource management, ensuring security, and controlling system performance. While reliability is important, it is often seen as an aspect of the operating system's quality rather than a direct function.
 
 ---
+[Back](Chapter1.md)
