@@ -116,9 +116,33 @@
   
 - **Priority-based Preemption**:  
   - If a higher-priority process (Py) arrives while a lower-priority process (Px) is running, the OS can remove Px from the CPU, allowing Py to execute.
+---
+
+### Multitasking Operating System
+- **Definition**:  
+  A multitasking OS employs preemptive multiprocessing to manage multiple tasks efficiently.
+
+![Schematic View of Multitasking](img/schematic_view_of_multitasking.drawio.png)
 
 ---
 
-Multitasking OS: Pre-emptive based Multiprocessing OS
+### Architectural Requirements for Implementing a Multiprogrammed OS (Hardware)
 
-![Schematic View of Multitasking](img\schematic_view_of_multitasking.drawio.png)
+1. **Secondary Storage Device (I/O)**:  
+   - Must be **DMA compatible** (Direct Memory Access).
+   - This ensures efficient data transfer between secondary storage and main memory.
+
+2. **Memory System Should Support Address Translation**:  
+   ![Address Translation](img/address_translation.drawio.png)
+
+   - **Reason for Two Addresses**:  
+     - **Security**: Using a single physical address allows each program to directly access physical memory locations. This can lead to issues where a buggy program might overwrite memory used by another program, corrupting data and causing crashes.
+     - **Logical Addresses**: By using logical addresses, an abstraction layer is created. Programs operate with logical addresses, which the OS translates to physical addresses, ensuring that programs do not interfere with each other's memory space.
+
+3. **Processor (CPU)**:  
+   - **Dual-Mode Operation**:  
+     - The processor should support **two modes of operation**:
+       - **User Mode**: Where regular applications run with limited access to system resources.
+       - **Kernel Mode**: Where the operating system operates with full access to hardware and critical system resources.
+     - **Purpose**:  
+       - This dual-mode operation is essential for ensuring system security and stability, as the **operating system** can switch the processor to **kernel mode** when performing critical tasks (like I/O operations or memory management), preventing user applications from directly interfering with sensitive hardware functions.
