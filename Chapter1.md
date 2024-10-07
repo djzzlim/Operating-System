@@ -9,7 +9,6 @@
 - [1.7 System Calls](Chapter1.7.md)
 - [1.8 Fork System Calls](Chapter1.8.md)
 - [1.9 Problem Solving](Chapter1.9.md)
-- [Question](Chapter1%20QNA.md)
 
 ---
 [Back](readme.md)

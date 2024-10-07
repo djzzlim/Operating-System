@@ -1,24 +1,4 @@
-# Mode Shifting in Multiprogramming OS
-
-![Mode Shifting Explanation](img/mode_shiting_explanation.drawio.png)
-
----
-
-### Overview
-- **Operating System**: Service Provider  
-- **User Programs**: Service User  
-
-Whenever we need an OS service, we shift from **user mode** to **kernel mode**. After completing the service, we switch back to **user mode**.
-
-**Mode shifting** is necessary to avail OS services.
-
----
-
-### API: Application Program Interface
-- An API informs the user about the OS services available.
-
----
-
+# Fork System Calls
 ### Instruction Types
 
 1. **Compile Time (CT)**  
@@ -111,3 +91,5 @@ write();
 
 - **No interrupt** is generated during the switch from **kernel mode** back to **user mode**.
 - A **privileged instruction** is used to switch from kernel to user mode without requiring an interrupt.
+
+---
