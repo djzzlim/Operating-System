@@ -118,10 +118,6 @@ void f(int k) {
   2. **SVC**: Supervisory Call
   3. **RT**: Runtime
   4. **Software Interrupt**
-  5. **ISR**: Interrupt Service Routine
+  5. **ISR**: Interrupt Service     
 
----
-
-## Summary
-**In short**:  
-**OS -> CT -> SVC -> RT -> Software Interrupt -> ISR**
+    **OS -> CT -> SVC -> RT -> Software Interrupt -> ISR**
