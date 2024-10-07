@@ -89,11 +89,12 @@ void f(int k) {
 ---
 
 ### Instruction Types
-1. **Compile Time (CT)**
-   - Represents the stage when code is compiled.
 
-2. **Branch and Save Address (BSA)**
-   - A non-privileged instruction.
+1. **Compile Time (CT)**  
+   This is the stage where the source code is translated into machine code or intermediate code by the compiler. It involves syntax checking, optimization, and error detection before execution. No actual instructions are executed at this point.
+
+2. **Branch and Save Address (BSA)**  
+   This instruction is used to change the flow of execution to another part of the program. It saves the current address (where the program was executing) so the program can return to it later. This instruction is non-privileged, meaning it can be executed in user mode without requiring kernel privileges.
 
 ---
 
