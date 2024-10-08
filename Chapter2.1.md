@@ -121,7 +121,7 @@ Just like other data structures, a process has:
 
 ---
 
-### Example: Linked List as an ADT
+### Example: Linked List as an ADT 
 
 - **Definition**: A linked list is a sequence of nodes where each node contains data and a reference (or link) to the next node.
 - **Representation**: Typically implemented as a chain of nodes in memory.
