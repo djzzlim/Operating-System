@@ -201,3 +201,14 @@ The **`.bss` segment** (Block Started by Symbol) is a section of memory in the p
 
 - **Accounting Related**:
   - **Resource Usage**: Tracking of CPU time, memory usage, and I/O operations performed by the process for accounting purposes.
+
+### Process Control Block (PCB)
+
+All of these attributes are stored in the **Process Control Block (PCB)**, which serves as an essential data structure for process management.
+
+![ID Card of Process](img/ID_card_of_process.drawio.png)
+
+#### Key Features of PCB:
+- **Constraints Attributes of Process**: The PCB holds all necessary information that defines the process and its constraints.
+- **Unique to Each Process**: Every process in the system has its own PCB, ensuring that the operating system can manage multiple processes effectively.
+- **Storage Location**: The PCB is stored in memory, allowing the operating system to quickly access and update the process information as needed.
