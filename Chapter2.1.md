@@ -212,3 +212,54 @@ All of these attributes are stored in the **Process Control Block (PCB)**, which
 - **Constraints Attributes of Process**: The PCB holds all necessary information that defines the process and its constraints.
 - **Unique to Each Process**: Every process in the system has its own PCB, ensuring that the operating system can manage multiple processes effectively.
 - **Storage Location**: The PCB is stored in memory, allowing the operating system to quickly access and update the process information as needed.
+
+---
+
+### Total Content of PCB = Process Context/Environment
+
+During the lifetime of a process, it transitions from one state to another. These transitions are represented in process state diagrams.
+
+1. **New**: The process is created, and resources are allocated.
+2. **Ready**: The process is ready to run on the CPU.
+3. **Running**: The process is actively executing instructions on the CPU.
+4. **Blocked/Waiting**: The process needs to perform I/O or execute a system call, so it leaves the CPU.
+   - **I/O**: This could involve reading data from a device or writing data to a device.
+5. **Terminate**: The process has completed all of its instructions, and resources are deallocated.
+
+---
+
+## Process State Transition Diagrams:
+
+### Multiprogramming Process State Transition Diagram:
+![Multiprogramming Process State Transition Diagram](img/multiprogramming_process_state_transition_diagram.drawio.png)
+
+### Uniprogramming Process State Transition Diagram:
+![Uniprogramming Process State Transition Diagram](img/uniprogramming_process_state_transition_diagram.drawio.png)
+
+---
+
+### Key Points About Process Completion:
+
+- Every process **must** finish its execution from the **Running** state. Remember that!
+- In most programs, we write the `exit` command or equivalent at the end, and this must be executed on the CPU to terminate the process.
+
+---
+
+### Important Notes:
+
+1. **Process in Memory States**:  
+   - A process in the **New** state is entering the main memory.  
+   - A process in the **Terminate** state is leaving the main memory.
+   - If a process is in the **Ready**, **Running**, or **Blocked** state, it is already present in the main memory.
+
+2. **Number of Processes in Each State**:
+   - **Ready/Blocked States**: There can be multiple processes in these states at any given time.
+     - Theoretical limit: **Infinite** processes can be in these states.
+   - **Running State**: Only one process per CPU can be in the **Running** state.
+     - Maximum processes: **Number of CPUs**.
+
+3. **Suspension**:  
+   If the operating system cannot accommodate all the processes in main memory (e.g., there are 120 ready processes but the system can only hold 100), the OS will transfer the remaining processes from main memory to the hard disk to improve performance. This process is called **Suspension**.  
+   - **Ready state** is the most desirable state for a process to be suspended.
+
+---
