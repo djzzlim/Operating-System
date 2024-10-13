@@ -263,3 +263,121 @@ During the lifetime of a process, it transitions from one state to another. Thes
    - **Ready state** is the most desirable state for a process to be suspended.
 
 ---
+
+![Suspend State Transition Diagram](img/suspend_state_transition_diagram.drawio.png)
+
+1. **Process in Running State**: Initially, the process is in the running state, executing its instructions.
+2. **Request for I/O Services or System Call**: The process may require I/O services, such as reading from a file or sending data over the network. It makes a system call to request the necessary I/O operation to complete. While in this state, the process is not actively executing instructions.
+3. **I/O Operation Completion**: The operating system handles the requested I/O operation. For example, if the process requested to read data from a file, the operating system would perform the necessary disk I/O operation to read the data into memory.
+4. **Process Resumes**: Once the I/O operation is complete, the process transitions back to the ready state, indicating that it is ready to continue executing. The operating system scheduler will then determine when to schedule the process for execution again.
+
+---
+
+## Complete State Transition Diagram
+![Complete State Transition Diagram](img/full_seven_transition_diagram.drawio.png)
+
+### Transition Details
+
+- **New to Ready**:
+  - **Action**: When a process is created (e.g., through a `fork()` system call or similar function).
+  - **Reason**: The process is initialized and ready to be scheduled by the operating system.
+
+- **Ready to Running**:
+  - **Action**: The scheduler selects a process from the Ready queue to run.
+  - **Reason**: The process has been allocated CPU time based on scheduling algorithms (like FIFO, Round Robin, etc.).
+
+- **Running to Blocked**:
+  - **Action**: The process makes a system call for I/O operations (e.g., reading from disk, waiting for user input).
+  - **Reason**: The process cannot continue until the I/O operation completes, so it is placed in the Blocked state.
+
+- **Running to Suspended Ready**:
+  - **Action**: The operating system may decide to suspend the process if system resources are limited.
+  - **Reason**: This transition typically occurs when the system needs to allocate resources to other processes, but the suspended process can still be resumed later.
+
+- **Blocked to Ready**:
+  - **Action**: Once the I/O operation completes or the required resource is available, the process is moved back to the Ready state.
+  - **Reason**: The process is now eligible to be scheduled for execution.
+
+- **Ready to Suspended Ready**:
+  - **Action**: The operating system may suspend a process in the Ready state.
+  - **Reason**: Similar to the transition from Running to Suspended Ready, this occurs when resources need to be freed for other processes.
+
+- **Suspended Ready to Ready**:
+  - **Action**: The suspended process is resumed and placed back in the Ready state.
+  - **Reason**: Resources are now available, allowing the suspended process to continue.
+
+- **Blocked to Suspended Block**:
+  - **Action**: If a Blocked process needs to be suspended (for example, if the system is under heavy load).
+  - **Reason**: This helps free resources while the process is waiting.
+
+- **Suspended Block to Blocked**:
+  - **Action**: The process is resumed and returns to the Blocked state if it was waiting for I/O or a resource.
+  - **Reason**: The I/O operation or resource is now available, but the process cannot run until the CPU is allocated to it.
+
+- **Running to Completed**:
+  - **Action**: The process finishes its execution.
+  - **Reason**: This indicates that the process has completed all tasks and is ready for cleanup.
+
+- **Completed to Terminated**:
+  - **Action**: The process is cleaned up by the operating system.
+  - **Reason**: Resources used by the process are released, and it is removed from the process table.
+
+---
+
+## Question:
+1. **Why the process moved from blocked to suspended block?**   
+   **Answer**:  
+   A process is moved to the "suspended block" state due to resource management and multitasking needs.
+
+   When a process is in the blocked state, it's waiting for an I/O operation to complete. However, sometimes the operating system needs to free up resources (like memory), or it might need to pause the process for other reasons (like if the user switches to a different application). In these cases, the opearting system can move the process from its blocked state to the "suspended blocked" state.
+
+   In the "suspended blocked" state, the process is not only waiting for an I/O operation to complete, but it's also been swapped out of main memory and placed onto disk storage. This frees up system resources and allows the operating system to work on other active processes.
+
+   Once the I/O operation is complete and the system resources are available again, the process can be moved back into main memory and transitioned to the "ready" state, where it's eligible to continue running on the CPU.
+
+   So, the transition to the "suspended blocked" state is a way for the operating system to manage system resources efficiently while ensuring that all processes get their turn to execute.
+
+2. **Why send to suspend ready instead of ready?**    
+   **Answer**:  
+   The transition from "suspended blocked" to "suspended ready" instead of directly to "ready" is due to the way of operating systems manage memory and resources.
+
+   When a process is in the "suspended blocked" state, it's not in the main memory but is swapped out to the disk. This is done to free up main memory for other active processes. When the I/O operation that the process was waiting for is complete, the process becomes "ready" in a logical sense, but it's still not in the main memory. So, it's in the "suspended ready" state.
+
+   Before the process can actually be executed, (i.e., moved to the "ready" state), it needs to be brought back into the main memory from the disk. THis operation is known as "swapping in" or "loading". The decision of when to load the process back into main memory is made by the operating system based on varoius factors like system load, memory usage, priority of processes, etc.
+
+   So, the "suspended ready" state is a way for the operating system to acknowledge that a process already to run but hasn't yet been loaded back into main memory. One the process is back in main meory, it moves to the "ready" state and can be scheduled to run on the CPU.
+
+3. **Why resuming the process from suspended block to block instead of sending it to suspended ready and then ready?**    
+   **Answer:**    
+   - **Case 1 (Suspended Block -> Suspended Ready -> Ready)**:  
+     This case is typically used when the system has enough resources (like memory) to keep the process in main memory but not enough to immediately allocate CPU time. The process moves to the **Suspended Ready** state to wait for CPU allocation, allowing the system to focus on higher-priority processes. This transition path helps ensure that the process will be ready to run when CPU resources become available.  
+   
+   - **Case 2 (Suspended Block -> Block -> Ready)**:  
+    This transition occurs when the process in the **Suspended Block** state (which was waiting for I/O or a resource and had been suspended due to resource constraints) no longer needs to be suspended. Once the resource or I/O operation becomes available, the process transitions to the **Blocked** state to complete any remaining I/O or wait. Once the I/O operation completes or the required resource becomes available, the process can then move to the **Ready** state.
+
+## Scheduling Queues & State Queuing Diagram
+
+### Scheduling Queues
+
+- **On Disk Queue**:
+  - **Job Queue (New State)**:  
+    Contains programs that are ready to be loaded into memory from the disk.
+
+  - **Suspend Queue (Suspended States)**:  
+    - Represents both **Suspended Block** and **Suspended Ready** processes.  
+    - Contains the list of processes that have been suspended from memory onto disk.
+
+- **In-Memory Queue**:
+  - **Ready Queue (Ready State)**:  
+    - Contains the list of **PCBs (Process Control Blocks)** of processes that are in the **Ready** state, waiting for CPU time.  
+    - The nodes in this queue are PCBs linked together like a linked list.
+
+  - **Block Queue (Blocked State)**:  
+    Contains the list of **PCBs** of processes that are in the **Blocked** state, waiting for I/O operations to complete.
+
+- **Device Queue** (Specific to I/O Devices):  
+  - Each I/O device in the system has its own **Device Queue**.  
+  - The **Device Queue** contains the list of **PCBs** of processes that are waiting for a particular I/O device to complete their operations.  
+  - When a process makes a system call to access an I/O device (like reading from or writing to a disk), it is placed in that device’s queue until the I/O operation is finished. 
+
+---
