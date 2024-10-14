@@ -381,3 +381,5 @@ During the lifetime of a process, it transitions from one state to another. Thes
   - When a process makes a system call to access an I/O device (like reading from or writing to a disk), it is placed in that device’s queue until the I/O operation is finished. 
 
 ---
+
+![](img/scheduling_queue.drawio.png)
