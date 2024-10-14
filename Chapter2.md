@@ -1,6 +1,6 @@
-# Process Management
+# Chapter 2 - Process Management
 
-- [Process Concepts and States]()
+<!-- - [Process Concepts and States]()
 - [Inter-process Communication (IPC)]()
 - Threads
    - [Multithreading Models]()
@@ -14,4 +14,6 @@
 - Classic Problems
    - [Producers/Consumers Problem]()
    - [Dining Philosophers Problem]()
-- [Monitors]()
+- [Monitors]() -->
+
+- [Chapter 2.1](Chapter2.1.md)
