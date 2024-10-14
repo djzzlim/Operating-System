@@ -382,4 +382,123 @@ During the lifetime of a process, it transitions from one state to another. Thes
 
 ---
 
-![](img/scheduling_queue.drawio.png)
+### State Queuing Diagram Explanation (Step-by-Step)
+
+![Scheduling Queue State Transition Diagram](img/scheduling_queue_state_transition_diagram.drawio.png)
+
+---
+
+![State Transition Diagram](img/state_queuing_diagram.drawio.png)
+
+The state queuing diagram illustrates how processes move through different states and queues in the operating system. Below is a step-by-step breakdown:
+
+1. **Job Queue (New State)**
+   - **Description**: The process begins in the **Job Queue**, corresponding to the **New** state in the process state transition diagram.
+   - **Explanation**: When a program is created, it is placed in the **Job Queue**. This queue contains programs that are ready to be loaded into the memory.
+
+2. **Ready Queue (Ready State)**
+   - **Description**: Once the program is loaded into memory, it becomes a process and moves to the **Ready Queue**.
+   - **Explanation**: The **Ready Queue** contains processes that are loaded in memory and are ready to be executed by the CPU. However, only one process can be executed at a time, so they wait for CPU time.
+
+3. **CPU Execution (Running State)**
+   - **Description**: From the **Ready Queue**, one process is selected by the **Scheduler**, but it is the **Dispatcher** that gives control of the CPU to the selected process.
+   - **Explanation**: The **Dispatcher** is responsible for transferring the control of the CPU to the process for execution. This moves the process into the **Running** state where it begins to execute instructions.
+
+4. **Process Termination (Terminated State)**
+   - **Description**: If the process completes all of its tasks, it will terminate.
+   - **Explanation**: Once the process has finished executing, it is removed from the system, freeing up resources.
+
+5. **I/O Request (Blocked State)**
+   - **Description**: If the process requires input/output (I/O) operations (e.g., reading from a disk), it moves from the **Running** state to the **Blocked Queue**.
+   - **Explanation**: In the **Blocked** state, the process waits for the I/O operation to complete. Each I/O device has its own **Device Queue**.
+
+6. **Ready Again After I/O (Ready State)**
+   - **Description**: After completing the I/O operation, the process moves back to the **Ready Queue**.
+   - **Explanation**: The process becomes eligible for CPU execution again and waits in the **Ready Queue** for the CPU to be assigned.
+
+7. **Suspension (Suspended States)**
+   - **Description**: A process in the **Ready** or **Blocked** state can be moved to the disk, resulting in suspension.
+   - **Explanation**: If the system needs to free up memory, processes can be suspended and moved to disk, either in the **Suspended Ready** or **Suspended Blocked** state. When resumed, they move back to their respective active states.
+
+8. **Preemption**
+   - **Description**: A running process can be preempted (e.g., due to higher-priority processes) and moved back to the **Ready Queue**.
+   - **Explanation**: In the case of preemption, the process moves from the **Running** state back to the **Ready Queue**, allowing other processes to be scheduled.
+
+9. **Process Resumption (Suspended Ready/Blocked to Ready/Blocked)**
+   - **Description**: If a suspended process is resumed, it moves from **Suspended Ready** to **Ready**, or from **Suspended Blocked** to **Blocked**.
+   - **Explanation**: This transition occurs when resources are available, and the process can continue its execution.
+
+---
+
+## Schedules and Dispatches
+### Scheduling Overview
+- **Scheduling** involves making decisions about which processes to move between various queues: job queue, ready queue, and suspend queue.
+- **Scheduler**: The component of the operating system responsible for making scheduling decisions.
+  - **Long Term Scheduler**: Moves processes from New to Ready.
+  - **Short Term Scheduler (CPU Scheduler)**: Moves processes from Ready to Running.
+  - **Medium Term Scheduler (Swapper)**: Handles process suspension and resuming.
+
+*The names of the schedulers are based on their frequency of activation.*
+
+![Scheduler Process Diagram](img/scheduler_process.drawio.png)
+
+#### Long Term Scheduler
+- Controls the degree of multiprogramming by loading new programs into memory.
+
+---
+
+### Dispatcher
+
+- The dispatcher is responsible for **context switching**, which involves:
+  - Loading and saving processes during a switch on the CPU.
+  - This activity ensures that the CPU can efficiently switch between different processes without idling.
+
+- The dispatcher works closely with the **Short Term Scheduler** to:
+  - Select the next process to run from the Ready Queue.
+  - Perform the necessary actions to switch the context from the currently executing process to the next scheduled process.
+
+- It is important to note that the dispatcher is **not involved in the suspension of processes**. This responsibility falls to the **Medium Term Scheduler (MTS)**, which manages:
+  - The suspension and resumption of processes based on system resource availability and process priority.
+
+  ![Dispatcher Process Diagram](img/dispatcher_process.drawio.png)
+
+---
+
+## Example of Process Switching
+
+1. **Initial State**: 
+   - Several processes (P_A, P_B, P_C, P_D) are in the Ready Queue.
+   - The CPU is currently executing process P_A.
+
+2. **Preemption Occurs**:
+   - If a preemption occurs while P_A is executing, the dispatcher will:
+     - Save the context of P_A (its Process Control Block, PCB) to the Ready Queue.
+     - Load the PCB of the next process (e.g., P_C) into the CPU.
+
+3. **Context Switching Process**:
+   - **Process Switch**: This refers to saving the PCB of the CPU-leaving process (P_A) and loading the PCB of the next process (P_C).
+   - If P_A requires I/O service instead of being preempted, it will:
+     - Save its PCB to the Blocked Queue, indicating that it is waiting for some I/O operation to complete.
+
+4. **Active Contexts**:
+   - Initially, the context of P_A is active in the CPU.
+   - After the context switch, the context of P_C becomes active in the CPU.
+   - This switch allows the CPU to continue executing processes without idling.
+
+5. **Dispatcher Time**:
+   - The time taken by the dispatcher to perform this context switching is referred to as:
+     - **Context Switching Time**: The time taken for the dispatcher to save the PCB of the currently executing process and load the PCB of the next process.
+     - **CPU Scheduling Overhead**: This encompasses the resources and time spent on managing context switches.
+     - **Dispatch Latency**: The delay experienced while the dispatcher is carrying out these tasks.
+   - The dispatcher is responsible for the activity of loading and saving the process during a process switch on the CPU, which includes:
+     - Saving the PCB of the CPU-leaving process (e.g., P_A).
+     - Loading the PCB of the next scheduled process (e.g., P_C) into the CPU.
+
+6. **Process Switch Summary**:
+   - When preemption occurs or when P_A requests an I/O operation, the dispatcher must:
+     - Save the PCB of the currently executing process (P_A).
+     - If it’s due to preemption, save it to the Ready Queue; if waiting for I/O, save it to the Blocked Queue.
+     - Load the PCB of the next scheduled process (P_C) into the CPU to ensure continuous execution.
+   - This transition between processes ensures that the CPU remains utilized and efficient, minimizing idle time.
+
+---
