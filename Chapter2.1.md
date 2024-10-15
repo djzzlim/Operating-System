@@ -502,3 +502,4 @@ The state queuing diagram illustrates how processes move through different state
    - This transition between processes ensures that the CPU remains utilized and efficient, minimizing idle time.
 
 ---
+
