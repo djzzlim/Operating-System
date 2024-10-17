@@ -85,14 +85,14 @@ $$
     - Adding the **Burst Time** of all processes includes I/O Burst Time as well.
 
   **Schedule Length Formula:**  
-  \[
-  L = \text{Completion Time of Last Process} - \text{Arrival Time of First Process}
-  \]
+  $$
+    L = \text{Completion Time of Last Process} - \text{Arrival Time of First Process}
+  $$
 
   **Throughput:**  
-  \[
-  \text{Throughput} = \frac{\text{Number of Processes Completed}}{\text{Schedule Length (L)}}
-  \]
+  $$
+    \text{Throughput} = \frac{\text{Number of Processes Completed}}{\text{Schedule Length (L)}}
+  $$
 
 ## Dispatcher and Context Switching Time:
 
