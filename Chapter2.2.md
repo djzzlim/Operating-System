@@ -249,3 +249,14 @@ All were present in Ready Queue at t = 0.
    - For P5:  
      **W.T(P5) = 7 - 4 = 3**
 
+---
+
+We'll learn about algorithm if they include δ and IOBT.
+
+In problem we  would be given with process lifecycle <BT, IOBT, BT> 
+
+Lifecycle <3, 5, 2>
+
+![](img/process_lifecycle_question.drawio.png)
+
+Loading the PCB of P1 in the CPU and it took one unit of time so from 0 to 1. the time was taken by the process to run on CPU s o1 to 4 that is the three unit of time taken by the process to run. from 4 to 9, the five unit
