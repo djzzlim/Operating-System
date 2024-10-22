@@ -251,12 +251,66 @@ All were present in Ready Queue at t = 0.
 
 ---
 
-We'll learn about algorithm if they include δ and IOBT.
+### Process Lifecycle with Dispatcher and IO Time
 
-In problem we  would be given with process lifecycle <BT, IOBT, BT> 
+#### Process Lifecycle: `<3, 5, 2>`
+- **CPU Burst Time 1**: 3 units
+- **IO Burst Time**: 5 units
+- **CPU Burst Time 2**: 2 units
+- **Dispatcher(δ) Time**: 1 unit (each time the process moves from Ready to Running state)
 
-Lifecycle <3, 5, 2>
+---
 
-![](img/process_lifecycle_question.drawio.png)
+#### Timeline Explanation:
+![Process Lifecycle Diagram](img/process_lifecycle_question.drawio.png)
 
-Loading the PCB of P1 in the CPU and it took one unit of time so from 0 to 1. the time was taken by the process to run on CPU s o1 to 4 that is the three unit of time taken by the process to run. from 4 to 9, the five unit
+| Time   | Event                                            | Description                                                  |
+|--------|--------------------------------------------------|--------------------------------------------------------------|
+| 0-1    | Dispatcher loads P1                              | Dispatcher takes **1 unit** of time to load P1 into the CPU.  |
+| 1-4    | P1 executes CPU Burst (1st)                      | P1 runs for **3 units** (1st CPU burst).                     |
+| 4-9    | P1 performs IO                                   | P1 moves to IO and takes **5 units** for IO operation.        |
+| 9-10   | Dispatcher loads P1 again                        | Dispatcher takes **1 unit** of time to load P1 back into CPU. |
+| 10-12  | P1 executes CPU Burst (2nd)                      | P1 runs for **2 units** (2nd CPU burst).                     |
+| 12     | P1 terminates                                    | P1 completes execution.                                       |
+
+---
+
+#### Step-by-Step Breakdown:
+
+1. **0-1**: Dispatcher loads the process into the CPU, taking **1 unit** of time.
+2. **1-4**: Process executes for **3 units** in the CPU (first CPU burst).
+3. **4-9**: Process performs IO for **5 units** (IO burst).
+4. **9-10**: Dispatcher loads the process back into the CPU after IO, taking another **1 unit** of time.
+5. **10-12**: Process executes the remaining **2 units** (second CPU burst).
+6. **12**: Process terminates.
+
+---
+
+#### Key Points:
+- Dispatcher overhead occurs each time the process is moved from **Ready** to **Running**.
+- The total time from arrival to termination is **12 units** (including CPU, IO, and dispatcher times).
+- This time represents **transit time** and is **not** the same as waiting time.
+- **Concurrency in IO** is only possible when the system has multiple IO devices; otherwise, processes would need to wait for IO operations to complete one after another.
+
+---
+
+#### Formula for Waiting Time:
+- $$
+  \text{Waiting time} = \text{TAT} - (\text{BT} + \text{IOBT} + n \times \delta)
+  $$
+- `n`: Number of times the process gets scheduled on the CPU.
+- **Always calculate from the chart**, not just by applying the formula.
+
+---
+
+#### Tips for Scheduling Algorithms:
+- **Always create a time chart** and ready queue.
+- Start the **Gantt chart from 0**.
+- Follow the transition diagram: **Ready → Running → Blocked → Ready**.
+- **Do not include δ (dispatcher time)** in the waiting time calculation when referring to the chart.
+
+---
+
+
+
+[Back](Chapter2.md)
